@@ -46,7 +46,6 @@ def signal_handler(signal, frame):
 
 def add(weblog_line,config):
     if config["input"] == 'sys.stdin':
-        print "sys"
         for lines in sys.stdin.readlines():
             weblog_line.put(lines)
     else:
@@ -68,8 +67,8 @@ def add(weblog_line,config):
 def parser(weblog_line,output_log,config):
     while True:
         line = weblog_line.get()
-        susp_files = ["/indx.php","/define.inc.php",
-                      "/LICENSE.php","/INSTALL.php"
+        susp_files = ["/indx.php","configic.php","/inedx.php","/define.inc.php",
+                      "/LICENSE.php","/saerch.php","/error.php","/INSTALL.php"
                       "/index.inc.php","/settings.class.php"]
         for files in susp_files:
             if line.find(files) != -1:
@@ -85,6 +84,14 @@ def parser(weblog_line,output_log,config):
             #response should be an dictionary
             output_log.put(response)
         if line.find("/stcurl.php") != -1:
+            response = stph(line)
+            #response should be an dictionary
+            output_log.put(response)
+        if line.find("/startphp.php") != -1:
+            response = stph(line)
+            #response should be an dictionary
+            output_log.put(response)
+        if line.find("/stmdu.php") != -1:
             response = stph(line)
             #response should be an dictionary
             output_log.put(response)
@@ -347,7 +354,7 @@ def output_cymru(output,config):
             print line
 
 def main(config):
-    print config
+    #print config
     """spy vs. spy - black spy wins"""
     """print banner"""
     print_banner()
